@@ -52,8 +52,8 @@
             <div class="card h-100 shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${list.title}"></h5>
-                    <p class="card-text text-muted small" th:text="${list.description}" th:if="${list.description}"></p>
-                    <p class="card-text text-muted small" th:if="${!list.description}">No description</p>
+                    <p class="card-text text-muted small" th:text="${list.description}" th:if="${not #strings.isEmpty(list.description)}"></p>
+                    <p class="card-text text-muted small" th:if="${#strings.isEmpty(list.description)}">No description</p>
                     <span class="badge bg-secondary" th:text="${list.items.size()} + ' items'"></span>
                 </div>
                 <div class="card-footer bg-transparent d-flex gap-2">

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New List — TodoApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-4" style="max-width: 600px;">
+    <a th:href="@{/dashboard}" class="btn btn-link ps-0 mb-3">
+        <i class="bi bi-arrow-left me-1"></i>Back to Dashboard
+    </a>
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <h2 class="h5 mb-4">Create New Todo List</h2>
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <form th:action="@{/dashboard/new}" method="post">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="title" name="title" required autofocus maxlength="100">
+                </div>
+                <div class="mb-4">
+                    <label for="description" class="form-label">Description <span class="text-muted small">(optional)</span></label>
+                    <textarea class="form-control" id="description" name="description" rows="3" maxlength="500"></textarea>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Create List</button>
+                    <a th:href="@{/dashboard}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

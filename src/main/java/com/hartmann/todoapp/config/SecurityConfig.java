@@ -1,7 +1,6 @@
 package com.hartmann.todoapp.config;
 
 import com.hartmann.todoapp.service.UserService;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,6 +8,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -22,11 +22,19 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Completely bypass Spring Security for the H2 console (development only).
+     * This avoids dispatch-type matching issues with the H2 embedded servlet.
+     */
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().requestMatchers("/h2-console/**");
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, UserService userService) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .requestMatchers("/", "/register", "/login", "/css/**", "/js/**").permitAll()
                 .anyRequest().authenticated()
             )
@@ -41,8 +49,7 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/login?logout=true")
                 .permitAll()
             )
-            .headers(headers -> headers.frameOptions(f -> f.sameOrigin()))
-            .csrf(csrf -> csrf.ignoringRequestMatchers(PathRequest.toH2Console()));
+            .headers(headers -> headers.frameOptions(f -> f.sameOrigin()));
         return http.build();
     }
 

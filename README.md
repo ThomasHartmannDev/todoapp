@@ -109,6 +109,27 @@ docker run --rm -p 8080:8080 todoapp:latest
 
 The container exposes the application on `http://localhost:8080`.
 
+### Configure Environment Variables
+
+Runtime configuration is read from environment variables with safe development defaults in
+`src/main/resources/application.properties`. Use `.env.example` as a template for local
+Docker runs:
+
+```bash
+cp .env.example .env
+```
+
+Do not commit `.env`; it is ignored by git.
+
+### Deploy Locally
+
+The deployment script builds the Docker image and starts a fresh container. If `.env`
+exists, it is injected with Docker's `--env-file` option.
+
+```bash
+bash deploy.sh
+```
+
 ---
 
 ## DevOps

@@ -1,19 +1,18 @@
 package com.hartmann.todoapp.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.hartmann.todoapp.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @SpringBootTest
 @Transactional
 class UserRepositoryTest {
 
-    @Autowired
-    private UserRepository userRepository;
+    @Autowired private UserRepository userRepository;
 
     @Test
     void shouldSaveAndFindUserByUsername() {

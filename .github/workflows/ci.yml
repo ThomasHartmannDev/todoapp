@@ -26,6 +26,9 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Check code formatting
+        run: mvn spotless:check --no-transfer-progress
+
       - name: Build with Maven
         run: mvn clean compile --no-transfer-progress
 

@@ -3,10 +3,9 @@ package com.hartmann.todoapp.service;
 import com.hartmann.todoapp.entity.TodoList;
 import com.hartmann.todoapp.entity.User;
 import com.hartmann.todoapp.repository.TodoListRepository;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class TodoListService {
@@ -22,8 +21,10 @@ public class TodoListService {
     }
 
     public TodoList findByIdAndUser(Long id, User user) {
-        return todoListRepository.findByIdAndOwner(id, user)
-            .orElseThrow(() -> new IllegalArgumentException("Todo list not found or access denied"));
+        return todoListRepository
+                .findByIdAndOwner(id, user)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Todo list not found or access denied"));
     }
 
     @Transactional

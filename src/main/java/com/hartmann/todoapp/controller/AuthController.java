@@ -24,9 +24,10 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String loginPage(@RequestParam(required = false) String error,
-                            @RequestParam(required = false) String logout,
-                            Model model) {
+    public String loginPage(
+            @RequestParam(required = false) String error,
+            @RequestParam(required = false) String logout,
+            Model model) {
         if (error != null) model.addAttribute("error", "Invalid username or password.");
         if (logout != null) model.addAttribute("message", "You have been logged out.");
         return "auth/login";
@@ -39,9 +40,10 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String processRegister(@Valid @ModelAttribute("form") RegistrationForm form,
-                                   BindingResult result,
-                                   RedirectAttributes redirectAttributes) {
+    public String processRegister(
+            @Valid @ModelAttribute("form") RegistrationForm form,
+            BindingResult result,
+            RedirectAttributes redirectAttributes) {
         if (!form.passwordsMatch()) {
             result.rejectValue("confirmPassword", "error.form", "Passwords do not match.");
         }

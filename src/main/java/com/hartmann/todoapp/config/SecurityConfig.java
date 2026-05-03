@@ -23,8 +23,8 @@ public class SecurityConfig {
     }
 
     /**
-     * Completely bypass Spring Security for the H2 console (development only).
-     * This avoids dispatch-type matching issues with the H2 embedded servlet.
+     * Completely bypass Spring Security for the H2 console (development only). This avoids
+     * dispatch-type matching issues with the H2 embedded servlet.
      */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -32,24 +32,27 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, UserService userService) throws Exception {
-        http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/register", "/login", "/css/**", "/js/**").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/dashboard", true)
-                .failureUrl("/login?error=true")
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout=true")
-                .permitAll()
-            )
-            .headers(headers -> headers.frameOptions(f -> f.sameOrigin()));
+    public SecurityFilterChain filterChain(HttpSecurity http, UserService userService)
+            throws Exception {
+        http.authorizeHttpRequests(
+                        auth ->
+                                auth.requestMatchers(
+                                                "/", "/register", "/login", "/css/**", "/js/**")
+                                        .permitAll()
+                                        .anyRequest()
+                                        .authenticated())
+                .formLogin(
+                        form ->
+                                form.loginPage("/login")
+                                        .defaultSuccessUrl("/dashboard", true)
+                                        .failureUrl("/login?error=true")
+                                        .permitAll())
+                .logout(
+                        logout ->
+                                logout.logoutUrl("/logout")
+                                        .logoutSuccessUrl("/login?logout=true")
+                                        .permitAll())
+                .headers(headers -> headers.frameOptions(f -> f.sameOrigin()));
         return http.build();
     }
 
@@ -61,7 +64,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
+            throws Exception {
         return config.getAuthenticationManager();
     }
 }

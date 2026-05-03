@@ -19,9 +19,10 @@ public class TodoListController {
     private final TodoItemService todoItemService;
     private final UserService userService;
 
-    public TodoListController(TodoListService todoListService,
-                               TodoItemService todoItemService,
-                               UserService userService) {
+    public TodoListController(
+            TodoListService todoListService,
+            TodoItemService todoItemService,
+            UserService userService) {
         this.todoListService = todoListService;
         this.todoItemService = todoItemService;
         this.userService = userService;
@@ -32,9 +33,8 @@ public class TodoListController {
     }
 
     @GetMapping("/{id}")
-    public String viewList(@PathVariable Long id,
-                            @AuthenticationPrincipal UserDetails principal,
-                            Model model) {
+    public String viewList(
+            @PathVariable Long id, @AuthenticationPrincipal UserDetails principal, Model model) {
         User user = getCurrentUser(principal);
         var list = todoListService.findByIdAndUser(id, user);
         model.addAttribute("list", list);
@@ -45,10 +45,11 @@ public class TodoListController {
     }
 
     @PostMapping("/{id}/items")
-    public String addItem(@PathVariable Long id,
-                           @RequestParam String content,
-                           @AuthenticationPrincipal UserDetails principal,
-                           RedirectAttributes redirectAttributes) {
+    public String addItem(
+            @PathVariable Long id,
+            @RequestParam String content,
+            @AuthenticationPrincipal UserDetails principal,
+            RedirectAttributes redirectAttributes) {
         User user = getCurrentUser(principal);
         if (content == null || content.trim().isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Item content cannot be empty.");
@@ -59,19 +60,21 @@ public class TodoListController {
     }
 
     @PostMapping("/{listId}/items/{itemId}/toggle")
-    public String toggleItem(@PathVariable Long listId,
-                              @PathVariable Long itemId,
-                              @AuthenticationPrincipal UserDetails principal) {
+    public String toggleItem(
+            @PathVariable Long listId,
+            @PathVariable Long itemId,
+            @AuthenticationPrincipal UserDetails principal) {
         User user = getCurrentUser(principal);
         todoItemService.toggleItem(itemId, listId, user);
         return "redirect:/lists/" + listId;
     }
 
     @PostMapping("/{listId}/items/{itemId}/delete")
-    public String deleteItem(@PathVariable Long listId,
-                              @PathVariable Long itemId,
-                              @AuthenticationPrincipal UserDetails principal,
-                              RedirectAttributes redirectAttributes) {
+    public String deleteItem(
+            @PathVariable Long listId,
+            @PathVariable Long itemId,
+            @AuthenticationPrincipal UserDetails principal,
+            RedirectAttributes redirectAttributes) {
         User user = getCurrentUser(principal);
         todoItemService.deleteItem(itemId, listId, user);
         redirectAttributes.addFlashAttribute("success", "Item deleted.");

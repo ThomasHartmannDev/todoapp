@@ -40,10 +40,11 @@ public class DashboardController {
     }
 
     @PostMapping("/new")
-    public String createList(@RequestParam String title,
-                              @RequestParam(required = false) String description,
-                              @AuthenticationPrincipal UserDetails principal,
-                              RedirectAttributes redirectAttributes) {
+    public String createList(
+            @RequestParam String title,
+            @RequestParam(required = false) String description,
+            @AuthenticationPrincipal UserDetails principal,
+            RedirectAttributes redirectAttributes) {
         User user = getCurrentUser(principal);
         if (title == null || title.trim().isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Title cannot be empty.");
@@ -54,20 +55,20 @@ public class DashboardController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editListForm(@PathVariable Long id,
-                                @AuthenticationPrincipal UserDetails principal,
-                                Model model) {
+    public String editListForm(
+            @PathVariable Long id, @AuthenticationPrincipal UserDetails principal, Model model) {
         User user = getCurrentUser(principal);
         model.addAttribute("list", todoListService.findByIdAndUser(id, user));
         return "lists/edit";
     }
 
     @PostMapping("/edit/{id}")
-    public String updateList(@PathVariable Long id,
-                              @RequestParam String title,
-                              @RequestParam(required = false) String description,
-                              @AuthenticationPrincipal UserDetails principal,
-                              RedirectAttributes redirectAttributes) {
+    public String updateList(
+            @PathVariable Long id,
+            @RequestParam String title,
+            @RequestParam(required = false) String description,
+            @AuthenticationPrincipal UserDetails principal,
+            RedirectAttributes redirectAttributes) {
         User user = getCurrentUser(principal);
         todoListService.update(id, title.trim(), description, user);
         redirectAttributes.addFlashAttribute("success", "List updated successfully.");
@@ -75,9 +76,10 @@ public class DashboardController {
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteList(@PathVariable Long id,
-                              @AuthenticationPrincipal UserDetails principal,
-                              RedirectAttributes redirectAttributes) {
+    public String deleteList(
+            @PathVariable Long id,
+            @AuthenticationPrincipal UserDetails principal,
+            RedirectAttributes redirectAttributes) {
         User user = getCurrentUser(principal);
         todoListService.delete(id, user);
         redirectAttributes.addFlashAttribute("success", "List deleted.");

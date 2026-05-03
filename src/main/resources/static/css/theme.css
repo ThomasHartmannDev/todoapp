@@ -1,0 +1,36 @@
+:root {
+    color-scheme: light;
+}
+
+[data-bs-theme="dark"] {
+    color-scheme: dark;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.theme-toggle {
+    width: 2.25rem;
+    height: 2.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle .bi-sun-fill,
+[data-bs-theme="dark"] .theme-toggle .bi-moon-stars-fill {
+    display: none;
+}
+
+[data-bs-theme="dark"] .theme-toggle .bi-sun-fill {
+    display: inline-block;
+}
+
+[data-bs-theme="dark"] .todo-item:hover {
+    background-color: var(--bs-tertiary-bg);
+}
+
+[data-bs-theme="dark"] .item-completed label {
+    color: var(--bs-secondary-color);
+}

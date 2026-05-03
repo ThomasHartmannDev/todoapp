@@ -1,0 +1,14 @@
+.git
+.github
+.idea
+.claude
+target
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings
+.vscode
+.DS_Store
+HELP.md

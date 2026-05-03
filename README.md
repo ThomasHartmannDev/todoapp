@@ -100,6 +100,15 @@ The H2 console is available at `http://localhost:8080/h2-console` (JDBC URL: `jd
 java -jar target/todoapp-0.0.1-SNAPSHOT.jar
 ```
 
+### Run with Docker
+
+```bash
+docker build -t todoapp:latest .
+docker run --rm -p 8080:8080 todoapp:latest
+```
+
+The container exposes the application on `http://localhost:8080`.
+
 ---
 
 ## DevOps

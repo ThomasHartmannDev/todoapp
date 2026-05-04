@@ -1,19 +1,18 @@
 package com.hartmann.todoapp.service;
 
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 import com.hartmann.todoapp.entity.TodoList;
 import com.hartmann.todoapp.entity.User;
 import com.hartmann.todoapp.repository.TodoListRepository;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.List;
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class TodoListServiceTest {
@@ -47,14 +46,15 @@ class TodoListServiceTest {
         when(todoListRepository.findByIdAndOwner(99L, testUser)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> todoListService.findByIdAndUser(99L, testUser))
-            .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void shouldReturnListsForUser() {
         TodoList list = new TodoList();
         list.setTitle("Work");
-        when(todoListRepository.findByOwnerOrderByCreatedAtDesc(testUser)).thenReturn(List.of(list));
+        when(todoListRepository.findByOwnerOrderByCreatedAtDesc(testUser))
+                .thenReturn(List.of(list));
 
         var result = todoListService.findAllByUser(testUser);
 

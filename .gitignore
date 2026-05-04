@@ -37,3 +37,6 @@ build/
 
 ### Application Properties (sensitive) ###
 src/main/resources/application-prod.properties
+.env
+.env.*
+!.env.example

@@ -1,19 +1,18 @@
 package com.hartmann.todoapp.service;
 
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 import com.hartmann.todoapp.entity.TodoItem;
 import com.hartmann.todoapp.entity.TodoList;
 import com.hartmann.todoapp.entity.User;
 import com.hartmann.todoapp.repository.TodoItemRepository;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class TodoItemServiceTest {
@@ -66,7 +65,7 @@ class TodoItemServiceTest {
         when(todoItemRepository.findByIdAndTodoList(99L, testList)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> todoItemService.toggleItem(99L, 1L, testUser))
-            .isInstanceOf(IllegalArgumentException.class)
-            .hasMessageContaining("Item not found");
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Item not found");
     }
 }

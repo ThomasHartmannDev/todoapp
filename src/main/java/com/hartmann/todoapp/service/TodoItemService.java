@@ -30,8 +30,10 @@ public class TodoItemService {
     @Transactional
     public void toggleItem(Long itemId, Long listId, User owner) {
         TodoList list = todoListService.findByIdAndUser(listId, owner);
-        TodoItem item = todoItemRepository.findByIdAndTodoList(itemId, list)
-            .orElseThrow(() -> new IllegalArgumentException("Item not found"));
+        TodoItem item =
+                todoItemRepository
+                        .findByIdAndTodoList(itemId, list)
+                        .orElseThrow(() -> new IllegalArgumentException("Item not found"));
         item.setCompleted(!item.isCompleted());
         todoItemRepository.save(item);
     }
@@ -39,8 +41,10 @@ public class TodoItemService {
     @Transactional
     public void deleteItem(Long itemId, Long listId, User owner) {
         TodoList list = todoListService.findByIdAndUser(listId, owner);
-        TodoItem item = todoItemRepository.findByIdAndTodoList(itemId, list)
-            .orElseThrow(() -> new IllegalArgumentException("Item not found"));
+        TodoItem item =
+                todoItemRepository
+                        .findByIdAndTodoList(itemId, list)
+                        .orElseThrow(() -> new IllegalArgumentException("Item not found"));
         todoItemRepository.delete(item);
     }
 }

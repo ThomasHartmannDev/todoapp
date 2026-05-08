@@ -4,6 +4,7 @@ import com.hartmann.todoapp.entity.TodoItem;
 import com.hartmann.todoapp.entity.TodoList;
 import com.hartmann.todoapp.entity.User;
 import com.hartmann.todoapp.repository.TodoItemRepository;
+import java.time.LocalDate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,10 +20,11 @@ public class TodoItemService {
     }
 
     @Transactional
-    public TodoItem addItem(Long listId, String content, User owner) {
+    public TodoItem addItem(Long listId, String content, LocalDate dueDate, User owner) {
         TodoList list = todoListService.findByIdAndUser(listId, owner);
         TodoItem item = new TodoItem();
         item.setContent(content.trim());
+        item.setDueDate(dueDate);
         item.setTodoList(list);
         return todoItemRepository.save(item);
     }

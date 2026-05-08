@@ -40,7 +40,7 @@ class TodoItemServiceTest {
         saved.setContent("Buy milk");
         when(todoItemRepository.save(any(TodoItem.class))).thenReturn(saved);
 
-        TodoItem result = todoItemService.addItem(1L, "Buy milk", testUser);
+        TodoItem result = todoItemService.addItem(1L, "Buy milk", null, testUser);
 
         assertThat(result.getContent()).isEqualTo("Buy milk");
         verify(todoItemRepository).save(any(TodoItem.class));

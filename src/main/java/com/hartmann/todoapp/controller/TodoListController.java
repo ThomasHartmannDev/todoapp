@@ -4,6 +4,8 @@ import com.hartmann.todoapp.entity.User;
 import com.hartmann.todoapp.service.TodoItemService;
 import com.hartmann.todoapp.service.TodoListService;
 import com.hartmann.todoapp.service.UserService;
+import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -48,6 +50,7 @@ public class TodoListController {
     public String addItem(
             @PathVariable Long id,
             @RequestParam String content,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dueDate,
             @AuthenticationPrincipal UserDetails principal,
             RedirectAttributes redirectAttributes) {
         User user = getCurrentUser(principal);
@@ -55,7 +58,7 @@ public class TodoListController {
             redirectAttributes.addFlashAttribute("error", "Item content cannot be empty.");
             return "redirect:/lists/" + id;
         }
-        todoItemService.addItem(id, content, user);
+        todoItemService.addItem(id, content, dueDate, user);
         return "redirect:/lists/" + id;
     }
 

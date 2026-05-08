@@ -116,7 +116,7 @@
                       th:with="overdue=${!item.completed and item.dueDate.isBefore(#temporals.createToday())},
                                dueToday=${!item.completed and item.dueDate.isEqual(#temporals.createToday())}"
                       th:class="${overdue} ? 'badge bg-danger' : (${dueToday} ? 'badge bg-warning text-dark' : 'badge bg-secondary bg-opacity-25 text-secondary border')"
-                      th:text="${overdue} ? 'Vencido · ' + ${#temporals.format(item.dueDate, 'dd/MM')} : ${#temporals.format(item.dueDate, 'dd/MM')}">
+                      th:text="${overdue} ? 'Overdue · ' + ${#temporals.format(item.dueDate, 'dd/MM')} : ${#temporals.format(item.dueDate, 'dd/MM')}">
                 </span>
 
                 <form th:action="@{/lists/{listId}/items/{itemId}/delete(listId=${list.id},itemId=${item.id})}"

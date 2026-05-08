@@ -67,7 +67,7 @@
                     <div th:if="${!list.items.empty}">
                         <div class="d-flex justify-content-between align-items-center mb-1">
                             <small class="text-muted"
-                                   th:text="${list.completedCount} + ' de ' + ${list.items.size()} + ' concluídos'"></small>
+                                   th:text="${list.completedCount} + ' of ' + ${list.items.size()} + ' completed'"></small>
                             <small class="text-muted"
                                    th:text="${#numbers.formatInteger(list.completedCount * 100 / list.items.size(), 0)} + '%'"></small>
                         </div>

@@ -78,4 +78,8 @@ public class TodoList {
     public void setItems(List<TodoItem> items) {
         this.items = items;
     }
+
+    public long getCompletedCount() {
+        return items.stream().filter(TodoItem::isCompleted).count();
+    }
 }

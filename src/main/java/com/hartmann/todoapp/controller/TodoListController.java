@@ -50,7 +50,8 @@ public class TodoListController {
     public String addItem(
             @PathVariable Long id,
             @RequestParam String content,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dueDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                    LocalDate dueDate,
             @AuthenticationPrincipal UserDetails principal,
             RedirectAttributes redirectAttributes) {
         User user = getCurrentUser(principal);

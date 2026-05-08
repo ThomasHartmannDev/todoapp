@@ -23,8 +23,7 @@ public class TodoItem {
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column
-    private LocalDate dueDate;
+    @Column private LocalDate dueDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "todo_list_id", nullable = false)
